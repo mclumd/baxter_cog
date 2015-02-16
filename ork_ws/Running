@@ -1,0 +1,11 @@
+1) Start xtion camera/kinect:
+roslaunch openni2_launch openni2.launch 
+2) Start the object detection pipeline
+Option A) Designed for the xtion camera
+rosrun object_recognition_core detection -c `rospack find object_recognition_tabletop`/conf/detection.object.ros.ork --visualize
+
+Option B)With color/not exactly sure: 
+rosrun object_recognition_core detection -c `rospack find object_recognition_tod`/conf/detection.ros.ork
+
+3) Tables
+
