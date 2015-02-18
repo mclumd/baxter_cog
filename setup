@@ -2,11 +2,21 @@
 
 Add these lines toend of  ~/.bashrc (some may be added already):
 source /opt/ros/hydro/setup.bash
-source /home/paisner/ROS-MIDCA/moveit_ws/devel/setup.bash
-source /home/paisner/ROS-MIDCA/ork_ws/devel/setup.bash
+source /usr/local/ork/devel/setup.bash
 
 To start working with baxter:
-. baxter.sh #from baxter_ws directory
+1) Ensure that both the workstation and baxter are connected to the same
+router, which is working.
+2) Plug in the robot and turn it on. It takes a couple minutes.
+3) Open up the terminal and do the following:
+source connect_to_baxter.sh
+
+Note: connecting to Baxter will move you to the baxter install directory
+(/usr/local/baxter), and you must cd back. This is not ideal; if anyone 
+wants to take some time and fix it that would be great. The issue is 
+that the baxter connection file baxter.sh must be run from this 
+directory and does not complete until you exit the connection. Also note
+that you will be returned to your start directory when you do exit.
 
 
 

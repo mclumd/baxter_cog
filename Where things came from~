@@ -4,5 +4,5 @@
 4) Moveit setup - Followed instructions from https://github.com/RethinkRobotics/sdk-docs/wiki/MoveIt-Tutorial
 5) ORK - followed instructions from http://wg-perception.github.io/object_recognition_core/install.html#install (using the ROS instructions to download and build from source. Installed all listed pipelines)
 
-6) Baxter using moveit was detecting a collision between its hand camera and gripper base, as well as [right/left]_hand_range and gripper_base. Added exceptions to ignore those to baxter_ws/src/moveit_robots/baxter/baxter_moveit_config/config/baxter.srdf
+6) Baxter using moveit was detecting a collision between its hand camera and gripper base, as well as [right/left]_hand_range and gripper_base, gripper and gripper base. Added exceptions to ignore those to baxter_ws/src/moveit_robots/baxter/baxter_moveit_config/config/baxter.srdf
 

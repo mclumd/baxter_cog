@@ -1,3 +1,5 @@
+Note: On the workstation, baxter stuff (including ork) is installed in /usr/local. This was similar to the instructions below but required a little extra chmoding and such.
+
 1) ROS Hydro previously installed
 2) Router connected to Baxter and workstation PC
 3) Baxter setup - Followed instructions from http://sdk.rethinkrobotics.com/wiki/Workstation_Setup (ignoring the full ros install step)
