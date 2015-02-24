@@ -1,0 +1,22 @@
+Problem: ork setup.sh overwrites baxter functions.
+
+1) enable the robot:
+rosrun baxter_tools enable_robot.py -e
+
+2) Make sure the camera is connected by usb
+
+3a) Start xtion camera/kinect (baxter neck):
+roslaunch openni2_launch openni2.launch 
+3b) Start the other kinect (baxter head):
+roslaunch openni_launch openni.launch //config files may not be set up
+
+4) Start the object detection pipeline
+Option A) Designed for the xtion camera
+rosrun object_recognition_core detection -c `rospack find object_recognition_tabletop`/conf/detection.object.ros.ork --visualize
+	-This outputs objects to rostopic /recognized_object_array
+
+Option B)With color/not exactly sure: 
+rosrun object_recognition_core detection -c `rospack find object_recognition_tod`/conf/detection.ros.ork
+
+3) Tables: To do
+

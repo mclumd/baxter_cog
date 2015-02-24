@@ -1,0 +1,13 @@
+For an example in python, see tests/moveit_test.py
+
+Note: all commands assume connection to robot using:
+source connect_to_robot.sh
+
+1) Enable robot:
+rosrun baxter_tools enable_robot.py -e
+2) Start servers in separate processes. This will take 10-15 seconds:
+rosrun baxter_interface joint_trajectory_action_server.py
+roslaunch baxter_moveit_config move_group.launch
+3) Done. Now you can start the demo [add command], or use the python
+interface as in the test mentioned above.
+
