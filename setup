@@ -2,7 +2,6 @@
 
 Add these lines toend of  ~/.bashrc (some may be added already):
 source /opt/ros/hydro/setup.bash
-source /usr/local/ork/devel/setup.bash
 
 To start working with baxter:
 1) Ensure that both the workstation and baxter are connected to the same
