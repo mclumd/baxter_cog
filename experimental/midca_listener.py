@@ -3,7 +3,8 @@ import sys, time
 import rospy
 import roslib
 
-from object_recognition_msgs.msg import ObjectArray
+from object_recognition_msgs.msg import RecognizedObjectArray
+import sensor_msgs.point_cloud2 as pc2
 
 def object_callback(data):
 	if data.objects:
@@ -25,6 +26,15 @@ def midca_listener():
     rospy.init_node('Midca_Node', anonymous=False)
     rospy.Subscriber("/recognized_object_array", ObjectArray, object_callback)
     rospy.spin()
+
+def bounding_box(pointCloud):
+	box = [0, 0, 0, 0]
+	i = 0
+	for point in pc2.read_points(pointCloud, skip_nans = True):
+		if i > 10:
+			break
+		i += 1
+		print point
 
 if __name__ == '__main__':
     try:
