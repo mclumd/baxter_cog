@@ -37,10 +37,14 @@ def point_joint_angles(target):
 	return angles
 
 def point_callback(data):
-	rospy.loginfo("Point: setting target to", str(data))
 	limb = baxter_interface.Limb('right')
-	limb.set_joint_positions(point_joint_angles([data.x, data.y, data.z]))
-	#limb.move_to_joint_positions(angles) #blocking
+	if data.x == 0 and data.y == 0 and data.z == 0:
+		rospy.loginfo("Point: got a stop command (all zeros)")
+		limb.set_joint_positions(limb.joint_angles())
+	else:
+		rospy.loginfo("Point: setting target to", str(data))
+		limb.set_joint_positions(point_joint_angles([data.x, data.y, data.z]))
+		#limb.move_to_joint_positions(angles) #blocking
 	
 def start_node(targetTopic):
 	rospy.init_node('baxter_point')
