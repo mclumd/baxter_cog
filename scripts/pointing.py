@@ -4,6 +4,7 @@ from __future__ import print_function
 import sys
 import math
 import numpy as np
+import time
 
 # rospy - ROS Python API
 import rospy
@@ -40,10 +41,10 @@ def point_callback(data):
 	limb = baxter_interface.Limb('right')
 	if data.x == 0 and data.y == 0 and data.z == 0:
 		rospy.loginfo("Point: got a stop command (all zeros)")
-		limb.set_joint_positions(limb.joint_angles())
 	else:
-		rospy.loginfo("Point: setting target to", str(data))
-		limb.set_joint_positions(point_joint_angles([data.x, data.y, data.z]))
+		rospy.loginfo("Point: setting target to" + str(data))
+		limb.move_to_joint_positions(point_joint_angles([data.x, data.y, 
+		data.z]), threshold = 0.05)
 		#limb.move_to_joint_positions(angles) #blocking
 	
 def start_node(targetTopic):
@@ -53,14 +54,25 @@ def start_node(targetTopic):
 	rospy.spin()
 
 def test_angle_finder():
-	print(point_joint_angles([2.0, 0.5, 0.5]))
-	print(point_joint_angles([-2.0, 0.5, 0.5]))
-	print(point_joint_angles([2.0, -0.5, 0.5]))
+	rospy.init_node('baxter_point')
+	points = [Point(x = 5.0, y = 0.0, z = 0.0),
+			  Point(x = 8.0, y = 3.0, z = 2.0),
+			  Point(x = 5.0, y = -1.0, z = -3.0)]
+	n = 0
+	while n < 20:
+		n += 1
+		time.sleep(1)
+		p = points[n % 3]
+		print(point_joint_angles([p.x, p.y, p.z]))
+		point_callback(p)
+		
 
 if __name__ == '__main__':
+    #test_angle_finder()
+    #sys.exit()
     if len(sys.argv) > 2:
     	raise Exception("Usage: 1 optional argument giving the topic on which commands are broadcast.")
-    elif len(sys.argv) == 1:
+    elif len(sys.argv) == 2:
     	topic = sys.argv[1]
     else:
     	topic = "/point_cmd"
