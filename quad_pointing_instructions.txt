@@ -1,0 +1,35 @@
+Instructions for running the baxter quad tracking demo. It is assumed
+that at each step you are in the root folder of the baxter_cog 
+repository. It is also assumed that the robot is enabled and each
+command is run after connecting to it.
+
+1) start voice recognition:
+cd speech_recog
+./baxter_sphinx
+
+2) start pointing server
+python scripts/pointing.py
+
+3) start the command processing node
+python speech_recog/cmd_process.py
+
+4) start the node that publishes quadrotor locations. To publish a 
+repeating set of 3 locations that has been used for testing, do the
+following:
+python speech_recog/quad_loc_test.py
+
+
+Notes:
+
+1) To get Baxter to point to actual locations, simply publish Point 
+messages (from geometry_msgs.msg import Point) to the topic 
+"/quad_position".
+
+2) If point outside Baxter's pointing "reach" are given, he may react 
+poorly. Be aware. This should be solved but I don't have time now.
+
+3) The best output will come from cmd_process.py. If there is a speaker 
+connected, try saying "hello baxter".
+
+4) The only commands that are known currently are "hello baxter" and
+"point to the quad". There are stubs for a few others in cmd_process.py.
