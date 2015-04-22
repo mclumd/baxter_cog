@@ -37,15 +37,32 @@ def point_joint_angles(target):
 	
 	return angles
 
+def check_range(target):
+	'''
+	target is a numpy array or python list containing the 3d location of the thing to be pointed at, using robot-centered coordinates.
+	'''
+	
+	#Center on location of the first point of rotation of the right arm
+	base_joint_pos = np.array([0.07316, -0.26733, 0.31])
+	targetnew = target - base_joint_pos
+	
+	#calculate variable angles
+	right_s0=math.atan2(targetnew[0], -targetnew[1]) - np.pi/4
+	right_s1=-math.atan2(targetnew[2], np.linalg.norm(targetnew[:2]))
+
+	return right_s0 < 1.55 and right_s0 > -1.6 and right_s1 < 1 and right_s1 > -1.35
+
 def point_callback(data):
 	limb = baxter_interface.Limb('right')
 	if data.x == 0 and data.y == 0 and data.z == 0:
 		rospy.loginfo("Point: got a stop command (all zeros)")
-	else:
+	elif check_range([data.x, data.y, data.z]):
 		rospy.loginfo("Point: setting target to" + str(data))
 		limb.move_to_joint_positions(point_joint_angles([data.x, data.y, 
 		data.z]), threshold = 0.05)
 		#limb.move_to_joint_positions(angles) #blocking
+	else:
+		rospy.loginfo("Point: target out of pointing range " + str(data))
 	
 def start_node(targetTopic):
 	rospy.init_node('baxter_point')
